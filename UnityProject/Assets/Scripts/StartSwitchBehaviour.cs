@@ -8,7 +8,12 @@ public class StartSwitchBehaviour : MonoBehaviour
     private bool _isStarted = false;
     private float _elapsedTime;
     private float _checkTime;
-    private Action checkEndAction; 
+    private Action checkEndAction;
+
+    void Start()
+    {
+        UmweltManager.Instance.SetCurrentState(GameState.Start);
+    }
 
     void Update()
     {
@@ -36,6 +41,7 @@ public class StartSwitchBehaviour : MonoBehaviour
 
     private void StartPrepare()
     {
+        UmweltManager.Instance.SetCurrentState(GameState.Prepare);
         SetCheckTime(3f);
         checkEndAction = OnStart;
     }
@@ -49,12 +55,14 @@ public class StartSwitchBehaviour : MonoBehaviour
     private void OnStart()
     {
         Debug.Log("Start");
+        UmweltManager.Instance.SetCurrentState(GameState.Playing);
         _isStarted = true;
     }
 
     private void OnEnd()
     {
         Debug.Log("End");
+        UmweltManager.Instance.SetCurrentState(GameState.End);
         _isStarted = false;
     }
 

@@ -14,23 +14,11 @@ public class SkyboxFader : FadeBase
     {
         _skybox = RenderSettings.skybox;
         _maxValue = _skybox.GetFloat("_Exposure");
+        _skybox.SetFloat("_Exposure", 0);
     }
 
     public override void Update()
     {
-        // TODO : This is testcode.
-        if (!IsEnableFade)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                FadeStart(FadeType.FadeOut);
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                FadeStart(FadeType.FadeIn);
-            }
-        }
-
         base.Update();
     }
 

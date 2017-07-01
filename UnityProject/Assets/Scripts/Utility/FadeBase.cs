@@ -35,6 +35,11 @@ public class FadeBase : MonoBehaviour
     /// </summary>
     public void FadeStart(FadeType type)
     {
+        if(IsEnableFade)
+        {
+            return;
+        }
+
         switch(type)
         {
             case FadeType.FadeOut:
