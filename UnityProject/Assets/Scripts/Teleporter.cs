@@ -22,7 +22,8 @@ public class Teleporter : RayIrradiatorBase
             }
             else
             {
-                Debug.Log(_timer.RemainingTime);
+                // TODO : add any feedback
+                //Debug.Log(_timer.RemainingTime);
             }
         }
     }

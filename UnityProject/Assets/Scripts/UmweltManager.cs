@@ -20,7 +20,6 @@ public class UmweltManager : GameManagerBase
     public override void DoPrepareAction()
     {
         base.DoPrepareAction();
-        AudioController.Instance.ChangeSourceType(FrequencyType.Middle, SourceType.Mono);
     }
 
     public override void DoPlayingAction()
