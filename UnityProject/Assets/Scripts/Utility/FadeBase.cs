@@ -6,8 +6,11 @@ public class FadeBase : MonoBehaviour
 {
     [SerializeField]
     private float _fadeOutTime;
+    public float FadeOutTime { get { return _fadeInTime; } }
+
     [SerializeField]
     private float _fadeInTime;
+    public float FadeInTime { get { return _fadeInTime; } }
 
     protected Timer _timer = new Timer();
     private Delegate.VoidDelegate FadeImpl;

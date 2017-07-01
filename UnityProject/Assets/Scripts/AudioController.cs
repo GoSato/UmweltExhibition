@@ -32,9 +32,9 @@ public class AudioController : SingletonMonoBehavior<AudioController>
 {
     [SerializeField]
     private List<AudioInfo> _audioClips = new List<AudioInfo>();
+    public List<AudioInfo> AudioClips { get { return _audioClips; } }
 
-    private List<AudioSource> _audioSources = new List<AudioSource>();
-    public List<AudioSource> AudioSources { get { return _audioSources; } }
+    private AudioFadeEffect _effect;
 
     void Start()
     {
@@ -42,6 +42,8 @@ public class AudioController : SingletonMonoBehavior<AudioController>
         {
             SpawnAudioObject(audio);
         }
+
+        _effect = GetComponent<AudioFadeEffect>();
     }
 
     /// <summary>
@@ -61,10 +63,11 @@ public class AudioController : SingletonMonoBehavior<AudioController>
     /// </summary>
     public void PlayAll()
     {
-        foreach(var audio in _audioClips)
+        foreach (var audio in _audioClips)
         {
             audio.Source.Play();
         }
+        _effect.FadeStart(FadeType.FadeIn);
     }
 
     /// <summary>
@@ -72,6 +75,14 @@ public class AudioController : SingletonMonoBehavior<AudioController>
     /// </summary>
     public void StopAll()
     {
+        _effect.FadeStart(FadeType.FadeOut);
+        StartCoroutine(StopAllCoroutine());
+    }
+
+    private IEnumerator StopAllCoroutine()
+    {
+        yield return new WaitForSeconds(_effect.FadeOutTime);
+
         foreach (var audio in _audioClips)
         {
             audio.Source.Stop();
@@ -99,6 +110,7 @@ public class AudioController : SingletonMonoBehavior<AudioController>
                 default:
                     break;
             }
+            audio.Source.Play();
         }
     }
 }

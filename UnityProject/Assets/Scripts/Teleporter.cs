@@ -64,6 +64,6 @@ public class Teleporter : RayIrradiatorBase
 
     private void Teleport()
     {
-        transform.position = _target.position;
+        transform.root.transform.position = _target.position;
     }
 }
