@@ -14,16 +14,34 @@ public class RayIrradiatorBase : MonoBehaviour
         int layerMask = LayerMask.GetMask(new string[] { "RayHittable" });
 
         Debug.DrawLine(transform.position, transform.position + fwd * 100, Color.red);
-        
-        if(Physics.Raycast(transform.position, fwd, out hit, Mathf.Infinity, layerMask))
+
+        if (Physics.Raycast(transform.position, fwd, out hit, Mathf.Infinity, layerMask))
         {
-            _hitObj = hit.collider.gameObject;
-            _hitPoint = hit.point;
+            if (_hitObj != hit.collider.gameObject)
+            {
+                _hitObj = hit.collider.gameObject;
+                _hitPoint = hit.point;
+                RayHit();
+            }
         }
         else
         {
-            _hitObj = null;
-            _hitPoint = Vector3.zero;
+            if (_hitObj != null)
+            {
+                _hitObj = null;
+                _hitPoint = Vector3.zero;
+                RayOut();
+            }
         }
+    }
+
+    public virtual void RayHit()
+    {
+
+    }
+
+    public virtual void RayOut()
+    {
+
     }
 }

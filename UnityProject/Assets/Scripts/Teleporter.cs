@@ -4,15 +4,58 @@ using UnityEngine;
 
 public class Teleporter : RayIrradiatorBase
 {
+    [SerializeField]
+    private float _readyTime;
+
+    private bool _isReadyTeleport = false;
+    private Timer _timer = new Timer();
+    private Transform _target;
+
     void Update()
     {
-        if(_hitObj != null)
+        if (_isReadyTeleport)
         {
-            // TODO : This is test input function.
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (_timer.Update())
             {
-                transform.position = _hitObj.transform.position;
+                _isReadyTeleport = false;
+                Teleport();
+            }
+            else
+            {
+                Debug.Log(_timer.RemainingTime);
             }
         }
+    }
+
+    public override void RayHit()
+    {
+        base.RayHit();
+        ReadyTeleport();
+    }
+
+    public override void RayOut()
+    {
+        base.RayOut();
+        CancelTeleport();
+    }
+
+    private void ReadyTeleport()
+    {
+        _timer.LimitTime = _readyTime;
+        _timer.IsEnable = true;
+        _target = _hitObj.transform;
+        _isReadyTeleport = true;
+    }
+
+    private void CancelTeleport()
+    {
+        _target = null;
+        _timer.IsEnable = false;
+        _isReadyTeleport = false;
+    }
+
+    private void Teleport()
+    {
+        transform.position = _target.position;
     }
 }

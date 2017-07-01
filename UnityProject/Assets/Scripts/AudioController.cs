@@ -78,19 +78,27 @@ public class AudioController : SingletonMonoBehavior<AudioController>
         }
     }
 
+    /// <summary>
+    /// 音源をStereo or Monoに切り替える
+    /// </summary>
+    /// <param name="fType"></param>
+    /// <param name="sType"></param>
     public void ChangeSourceType(FrequencyType fType, SourceType sType)
     {
-        var audioClip = _audioClips.Where(a => a.Type == fType) as AudioInfo;
-        switch (sType)
+        var audioClip = _audioClips.Where(a => a.Type == fType);
+        foreach (var audio in audioClip)
         {
-            case SourceType.Mono:
-                audioClip.Source.clip = audioClip.Mono;
-                break;
-            case SourceType.Stereo:
-                audioClip.Source.clip = audioClip.Stereo;
-                break;
-            default:
-                break;
+            switch (sType)
+            {
+                case SourceType.Mono:
+                    audio.Source.clip = audio.Mono;
+                    break;
+                case SourceType.Stereo:
+                    audio.Source.clip = audio.Stereo;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
