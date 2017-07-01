@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4235084935684988}
   - component: {fileID: 114354203465845684}
+  - component: {fileID: 114621466906070660}
   m_Layer: 0
   m_Name: AudioController
   m_TagString: Untagged
@@ -52,12 +53,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClips:
-  - Target: {fileID: 0}
+  - Type: 0
+    Target: {fileID: 0}
     AudioObject: {fileID: 1952008970976744, guid: 77458d7d7add1da4abcc0b6ea8f3657d,
       type: 2}
-  - Target: {fileID: 0}
+    Mono: {fileID: 8300000, guid: 40c5fde812a754141ac160a1e4bba2e4, type: 3}
+    Stereo: {fileID: 8300000, guid: 2d47f3a1a2e77a240b972c397ea635df, type: 3}
+    Source: {fileID: 0}
+  - Type: 1
+    Target: {fileID: 0}
     AudioObject: {fileID: 1999094349148120, guid: c11745914da8a8f45a1f1572f7a00ea2,
       type: 2}
-  - Target: {fileID: 0}
+    Mono: {fileID: 8300000, guid: 78f9e6fd81682b34680b7e85e6ea0352, type: 3}
+    Stereo: {fileID: 8300000, guid: 40f893c2f48b71746988584171c52696, type: 3}
+    Source: {fileID: 0}
+  - Type: 2
+    Target: {fileID: 0}
     AudioObject: {fileID: 1375974010091304, guid: b9d0358ff4ff1454a9e04772f0d42b46,
       type: 2}
+    Mono: {fileID: 8300000, guid: 0d827a74f85cb75408c0d368278fdf2e, type: 3}
+    Stereo: {fileID: 8300000, guid: f18f7cec62acc394981aa11cbb7fbae4, type: 3}
+    Source: {fileID: 0}
+--- !u!114 &114621466906070660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1087778525377536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482ac737e8b3b4948942c804a9cf5a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeOutTime: 3
+  _fadeInTime: 3
