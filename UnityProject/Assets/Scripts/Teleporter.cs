@@ -40,6 +40,10 @@ public class Teleporter : RayIrradiatorBase
         CancelTeleport();
     }
 
+    /// <summary>
+    /// テレポート待機状態
+    /// 指定秒数後テレポート
+    /// </summary>
     private void ReadyTeleport()
     {
         _timer.LimitTime = _readyTime;
@@ -48,6 +52,9 @@ public class Teleporter : RayIrradiatorBase
         _isReadyTeleport = true;
     }
 
+    /// <summary>
+    /// テレポート待機状態をキャンセル
+    /// </summary>
     private void CancelTeleport()
     {
         _target = null;
