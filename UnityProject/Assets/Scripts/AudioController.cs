@@ -1,12 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+public enum FrequencyType
+{
+    High,
+    Middle,
+    Low
+}
+
+public enum SourceType
+{
+    Mono,
+    Stereo
+}
 
 [System.Serializable]
 public class AudioInfo
 {
+    public FrequencyType Type;
     public Transform Target;
     public GameObject AudioObject;
+    public AudioClip Mono;
+    public AudioClip Stereo;
+    [HideInInspector]
+    public AudioSource Source;
 }
 
 public class AudioController : SingletonMonoBehavior<AudioController>
@@ -33,7 +52,8 @@ public class AudioController : SingletonMonoBehavior<AudioController>
     {
         var gameObject = Instantiate(audio.AudioObject, audio.Target);
         var audioSource = gameObject.GetComponent<AudioSource>();
-        _audioSources.Add(audioSource);
+        audioSource.clip = audio.Stereo;
+        audio.Source = audioSource;
     }
 
     /// <summary>
@@ -41,9 +61,9 @@ public class AudioController : SingletonMonoBehavior<AudioController>
     /// </summary>
     public void PlayAll()
     {
-        foreach(var audio in _audioSources)
+        foreach(var audio in _audioClips)
         {
-            audio.Play();
+            audio.Source.Play();
         }
     }
 
@@ -52,9 +72,25 @@ public class AudioController : SingletonMonoBehavior<AudioController>
     /// </summary>
     public void StopAll()
     {
-        foreach (var audio in _audioSources)
+        foreach (var audio in _audioClips)
         {
-            audio.Stop();
+            audio.Source.Stop();
+        }
+    }
+
+    public void ChangeSourceType(FrequencyType fType, SourceType sType)
+    {
+        var audioClip = _audioClips.Where(a => a.Type == fType) as AudioInfo;
+        switch (sType)
+        {
+            case SourceType.Mono:
+                audioClip.Source.clip = audioClip.Mono;
+                break;
+            case SourceType.Stereo:
+                audioClip.Source.clip = audioClip.Stereo;
+                break;
+            default:
+                break;
         }
     }
 }
