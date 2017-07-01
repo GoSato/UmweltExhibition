@@ -24,6 +24,7 @@ public class Teleporter : RayIrradiatorBase
             {
                 // TODO : add any feedback
                 //Debug.Log(_timer.RemainingTime);
+                //_hitObj.transform.Find("ScalingCircle").transform.localScale = Vector3.one * (1 - _timer.Ratio);
             }
         }
     }
