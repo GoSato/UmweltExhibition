@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 2130748062}
   - component: {fileID: 2130748061}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: SkyboxFader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
