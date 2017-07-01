@@ -13,8 +13,13 @@ public class VideoPlayerBehaviour : MonoBehaviour
         _video = GetComponent<VideoPlayer>();
     }
 
-    public void PlayMove()
+    public void PlayVideo()
     {
         _video.Play();
+    }
+
+    public void StopVideo()
+    {
+        _video.Stop();
     }
 }

@@ -15,7 +15,7 @@ public class VideoTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _videoPlayer.PlayMove();
+            _videoPlayer.PlayVideo();
         }
     }
 }

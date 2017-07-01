@@ -5,11 +5,13 @@ using UnityEngine;
 public class UmweltManager : GameManagerBase
 {
     private SkyboxFader _skyboxFader;
+    private VideoPlayerBehaviour _video;
 
     public override void Start()
     {
         base.Start();
         _skyboxFader = FindObjectOfType<SkyboxFader>();
+        _video = FindObjectOfType<VideoPlayerBehaviour>();
     }
 
     public override void DoStartAction()
@@ -27,6 +29,7 @@ public class UmweltManager : GameManagerBase
         base.DoPlayingAction();
         AudioController.Instance.PlayAll();
         _skyboxFader.FadeStart(FadeType.FadeIn);
+        _video.PlayVideo();
     }
 
     public override void DoEndAction()
@@ -34,5 +37,6 @@ public class UmweltManager : GameManagerBase
         base.DoEndAction();
         AudioController.Instance.StopAll();
         _skyboxFader.FadeStart(FadeType.FadeOut);
+        _video.StopVideo();
     }
 }
