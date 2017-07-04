@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioObjectBehaviour : MonoBehaviour, IAudioObject
 {
@@ -21,6 +22,20 @@ public class AudioObjectBehaviour : MonoBehaviour, IAudioObject
         }
     }
 
+    private RawImage _image;
+    public RawImage Image
+    {
+        get
+        {
+            return _image;
+        }
+
+        set
+        {
+            _image = value;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (IsPlayer(other))
@@ -31,7 +46,7 @@ public class AudioObjectBehaviour : MonoBehaviour, IAudioObject
 
     private void OnTriggerExit(Collider other)
     {
-        if(IsPlayer(other))
+        if (IsPlayer(other))
         {
             //AudioController.Instance.ChangeSourceType(_type, SourceType.Stereo);
         }
@@ -39,7 +54,7 @@ public class AudioObjectBehaviour : MonoBehaviour, IAudioObject
 
     private bool IsPlayer(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             return true;
         }

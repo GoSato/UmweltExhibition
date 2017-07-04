@@ -36,8 +36,9 @@ public class AudioController : SingletonMonoBehavior<AudioController>
 
     private AudioFadeEffect _effect;
 
-    void Start()
+    override protected void Awake()
     {
+        base.Awake();
         foreach (var audio in _audioClips)
         {
             SpawnAudioObject(audio);
@@ -151,6 +152,24 @@ public class AudioController : SingletonMonoBehavior<AudioController>
                     break;
             }
             audio.Source.Play();
+        }
+    }
+
+    public void EnableImage(FrequencyType type)
+    {
+        var audioClip = _audioClips.Where(a => a.Type == type);
+        foreach (var audio in audioClip)
+        {
+            audio.Source.GetComponent<IAudioObject>().Image.color = new Color(1, 1, 1, 1);
+        }
+    }
+
+    public void DisableImage(FrequencyType type)
+    {
+        var audioClip = _audioClips.Where(a => a.Type == type);
+        foreach (var audio in audioClip)
+        {
+            audio.Source.GetComponent<IAudioObject>().Image.color = new Color(0, 0, 0, 0);
         }
     }
 }
