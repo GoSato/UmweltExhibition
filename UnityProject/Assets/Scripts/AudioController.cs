@@ -59,6 +59,46 @@ public class AudioController : SingletonMonoBehavior<AudioController>
     }
 
     /// <summary>
+    /// 指定された音源を再生
+    /// </summary>
+    /// <param name="type"></param>
+    private void Play(FrequencyType type)
+    {
+        var audioClip = _audioClips.Where(a => a.Type == type);
+        foreach (var audio in audioClip)
+        {
+            audio.Source.Play();
+        }
+    }
+
+    /// <summary>
+    /// 指定された音源を停止
+    /// </summary>
+    /// <param name="type"></param>
+    public void Stop(FrequencyType type)
+    {
+        var audioClip = _audioClips.Where(a => a.Type == type);
+        foreach (var audio in audioClip)
+        {
+            audio.Source.Stop();
+        }
+    }
+
+    /// <summary>
+    /// 指定された音源の音量を変更
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="volume"></param>
+    public void ChangeVolume(FrequencyType type, float volume)
+    {
+        var audioClip = _audioClips.Where(a => a.Type == type);
+        foreach (var audio in audioClip)
+        {
+            audio.Source.volume = volume;
+        }
+    }
+
+    /// <summary>
     /// 登録されている全ての音源を再生
     /// </summary>
     public void PlayAll()

@@ -66,5 +66,25 @@ public class Teleporter : RayIrradiatorBase
     private void Teleport()
     {
         transform.root.transform.position = _target.position;
+        var type = _target.GetComponentInChildren<IAudioObject>().Type;
+        PlayerState state;
+
+        switch (type)
+        {
+            case FrequencyType.High:
+                state = PlayerState.High;
+                break;
+            case FrequencyType.Middle:
+                state = PlayerState.Middle;
+                break;
+            case FrequencyType.Low:
+                state = PlayerState.Low;
+                break;
+            default:
+                state = PlayerState.None;
+                break;
+        }
+
+        PlayerManager.Instance.SetCurrentState(state);
     }
 }
