@@ -1,17 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioObjectBehaviour : MonoBehaviour
+public class AudioObjectBehaviour : MonoBehaviour, IAudioObject
 {
     [SerializeField]
     private FrequencyType _type;
+
+    public FrequencyType Type
+    {
+        get
+        {
+            return _type;
+        }
+
+        set
+        {
+
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (IsPlayer(other))
         {
-            AudioController.Instance.ChangeSourceType(_type, SourceType.Mono);
+            //AudioController.Instance.ChangeSourceType(_type, SourceType.Mono);
         }
     }
 
@@ -19,7 +33,7 @@ public class AudioObjectBehaviour : MonoBehaviour
     {
         if(IsPlayer(other))
         {
-            AudioController.Instance.ChangeSourceType(_type, SourceType.Stereo);
+            //AudioController.Instance.ChangeSourceType(_type, SourceType.Stereo);
         }
     }
 
