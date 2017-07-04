@@ -32,7 +32,17 @@ public class Teleporter : RayIrradiatorBase
     public override void RayHit()
     {
         base.RayHit();
-        ReadyTeleport();
+        if (PlayerManager.Instance.CurrentPlayerState == PlayerState.Middle)
+        {
+            ReadyTeleport();
+        }
+        else
+        {
+            if(_hitObj.GetComponentInChildren<IAudioObject>().Type == FrequencyType.Middle)
+            {
+                ReadyTeleport();
+            }
+        }
     }
 
     public override void RayOut()
@@ -63,28 +73,39 @@ public class Teleporter : RayIrradiatorBase
         _isReadyTeleport = false;
     }
 
+    /// <summary>
+    /// ターゲットの位置に移動
+    /// </summary>
     private void Teleport()
     {
         transform.root.transform.position = _target.position;
+
+        var state = ConvertState();
+        PlayerManager.Instance.SetCurrentState(state);
+    }
+
+    /// <summary>
+    /// ターゲットになっているAudioObjectのtypeをstateに変換
+    /// </summary>
+    /// <returns></returns>
+    private PlayerState ConvertState()
+    {
         var type = _target.GetComponentInChildren<IAudioObject>().Type;
-        PlayerState state;
 
         switch (type)
         {
             case FrequencyType.High:
-                state = PlayerState.High;
+                return PlayerState.High;
                 break;
             case FrequencyType.Middle:
-                state = PlayerState.Middle;
+                return PlayerState.Middle;
                 break;
             case FrequencyType.Low:
-                state = PlayerState.Low;
+                return PlayerState.Low;
                 break;
             default:
-                state = PlayerState.None;
+                return PlayerState.None;
                 break;
         }
-
-        PlayerManager.Instance.SetCurrentState(state);
     }
 }
