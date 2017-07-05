@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UmweltManager : GameManagerBase
 {
+    [SerializeField]
+    private float _restartTime = 3f;
+
     private SkyboxFader _skyboxFader;
     private VideoPlayerBehaviour _video;
 
@@ -37,6 +40,13 @@ public class UmweltManager : GameManagerBase
         base.DoEndAction();
         AudioController.Instance.StopAll();
         _skyboxFader.FadeStart(FadeType.FadeOut);
+        StartCoroutine(RestartCoroutine());
         //_video.StopVideo();
+    }
+
+    private IEnumerator RestartCoroutine()
+    {
+        yield return new WaitForSeconds(_restartTime);
+        SetCurrentState(GameState.Start);
     }
 }

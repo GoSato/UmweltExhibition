@@ -26,17 +26,17 @@ public class StartSwitchBehaviour : MonoBehaviour
         }
     }
 
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if(_isStarted && IsCamera(other))
-    //    {
-    //        EndPrepare();
-    //    }
-    //}
+    void OnTriggerEnter(Collider other)
+    {
+        if (UmweltManager.Instance.CurrentGameState == GameState.Playing && IsCamera(other))
+        {
+            EndPrepare();
+        }
+    }
 
     void OnTriggerExit(Collider other)
     {
-        if(!_isStarted && IsCamera(other))
+        if(UmweltManager.Instance.CurrentGameState == GameState.Start && IsCamera(other))
         {
             StartPrepare();
         }
@@ -60,7 +60,6 @@ public class StartSwitchBehaviour : MonoBehaviour
         Debug.Log("Start");
         UmweltManager.Instance.SetCurrentState(GameState.Playing);
         checkEndAction = null;
-        _isStarted = true;
     }
 
     private void OnEnd()
@@ -68,7 +67,6 @@ public class StartSwitchBehaviour : MonoBehaviour
         Debug.Log("End");
         UmweltManager.Instance.SetCurrentState(GameState.End);
         checkEndAction = null;
-        _isStarted = false;
     }
 
     /// <summary>
