@@ -6,8 +6,6 @@ public class Teleporter : RayIrradiatorBase
 {
     [SerializeField]
     private float _readyTime;
-    [SerializeField]
-    private Transform _cameraParent;
 
     private bool _isReadyTeleport = false;
     private Timer _timer = new Timer();
@@ -34,9 +32,16 @@ public class Teleporter : RayIrradiatorBase
     public override void RayHit()
     {
         base.RayHit();
-        if (UmweltManager.Instance.CurrentGameState == GameState.Playing)
+        if (PlayerManager.Instance.CurrentPlayerState == PlayerState.Middle)
         {
             ReadyTeleport();
+        }
+        else
+        {
+            if (_hitObj.GetComponentInChildren<IAudioObject>().Type == FrequencyType.Middle)
+            {
+                ReadyTeleport();
+            }
         }
     }
 
@@ -68,9 +73,39 @@ public class Teleporter : RayIrradiatorBase
         _isReadyTeleport = false;
     }
 
+    /// <summary>
+    /// ターゲットの位置に移動
+    /// </summary>
     private void Teleport()
     {
-        _cameraParent.position = new Vector3(_target.position.x, _cameraParent.position.y, _target.position.z);
-        _cameraParent.transform.parent = _target.transform;
+        transform.root.transform.position = _target.position;
+
+        var state = ConvertState();
+        PlayerManager.Instance.SetCurrentState(state);
+    }
+
+    /// <summary>
+    /// ターゲットになっているAudioObjectのtypeをstateに変換
+    /// </summary>
+    /// <returns></returns>
+    private PlayerState ConvertState()
+    {
+        var type = _target.GetComponentInChildren<IAudioObject>().Type;
+
+        switch (type)
+        {
+            case FrequencyType.High:
+                return PlayerState.High;
+                break;
+            case FrequencyType.Middle:
+                return PlayerState.Middle;
+                break;
+            case FrequencyType.Low:
+                return PlayerState.Low;
+                break;
+            default:
+                return PlayerState.None;
+                break;
+        }
     }
 }
