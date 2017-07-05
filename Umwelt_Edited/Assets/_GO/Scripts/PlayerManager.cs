@@ -54,6 +54,7 @@ public class PlayerManager : SingletonMonoBehavior<PlayerManager>
         AudioController.Instance.ChangeVolume(FrequencyType.High, 1f);
         AudioController.Instance.ChangeVolume(FrequencyType.Low, 0f);
         AudioController.Instance.EnableImage(FrequencyType.Low);
+        AudioController.Instance.EnableImage(FrequencyType.Middle);
         AudioController.Instance.DisableImage(FrequencyType.High);
     }
 
@@ -72,5 +73,6 @@ public class PlayerManager : SingletonMonoBehavior<PlayerManager>
         AudioController.Instance.ChangeVolume(FrequencyType.Low, 1f);
         AudioController.Instance.EnableImage(FrequencyType.High);
         AudioController.Instance.DisableImage(FrequencyType.Low);
+        AudioController.Instance.EnableImage(FrequencyType.Middle);
     }
 }
