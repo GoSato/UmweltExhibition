@@ -9,6 +9,9 @@ public class AudioObjectBehaviour : MonoBehaviour, IAudioObject
     [SerializeField]
     private FrequencyType _type;
 
+    [SerializeField]
+    private GameObject _rayHittedUI;
+
     public FrequencyType Type
     {
         get
@@ -59,5 +62,15 @@ public class AudioObjectBehaviour : MonoBehaviour, IAudioObject
             return true;
         }
         return false;
+    }
+
+    public void EnableUI()
+    {
+        _rayHittedUI.SetActive(true);
+    }
+
+    public void DisableUI()
+    {
+        _rayHittedUI.SetActive(false);
     }
 }

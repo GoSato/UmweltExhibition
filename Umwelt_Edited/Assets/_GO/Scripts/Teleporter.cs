@@ -61,6 +61,7 @@ public class Teleporter : RayIrradiatorBase
         _timer.IsEnable = true;
         _target = _hitObj.transform;
         _isReadyTeleport = true;
+        _target.GetComponentInChildren<AudioObjectBehaviour>().EnableUI();
     }
 
     /// <summary>
@@ -68,6 +69,12 @@ public class Teleporter : RayIrradiatorBase
     /// </summary>
     private void CancelTeleport()
     {
+        if(_target == null)
+        {
+            return;
+        }
+
+        _target.GetComponentInChildren<AudioObjectBehaviour>().DisableUI();
         _target = null;
         _timer.IsEnable = false;
         _isReadyTeleport = false;
@@ -82,6 +89,7 @@ public class Teleporter : RayIrradiatorBase
 
         var state = ConvertState();
         PlayerManager.Instance.SetCurrentState(state);
+        _target.GetComponentInChildren<AudioObjectBehaviour>().DisableUI();
     }
 
     /// <summary>
