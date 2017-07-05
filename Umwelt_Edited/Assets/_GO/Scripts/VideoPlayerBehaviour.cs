@@ -13,6 +13,7 @@ public class VideoPlayerBehaviour : MonoBehaviour
         _video = GetComponent<VideoPlayer>();
     }
 
+    [ContextMenu("PlayVideo")]
     public void PlayVideo()
     {
         _video.Play();

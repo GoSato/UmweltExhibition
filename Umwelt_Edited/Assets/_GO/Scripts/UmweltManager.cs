@@ -32,7 +32,7 @@ public class UmweltManager : GameManagerBase
         base.DoPlayingAction();
         AudioController.Instance.PlayAll();
         _skyboxFader.FadeStart(FadeType.FadeIn);
-        //_video.PlayVideo();
+        _video.PlayVideo();
     }
 
     public override void DoEndAction()
@@ -41,7 +41,7 @@ public class UmweltManager : GameManagerBase
         AudioController.Instance.StopAll();
         _skyboxFader.FadeStart(FadeType.FadeOut);
         StartCoroutine(RestartCoroutine());
-        //_video.StopVideo();
+        _video.StopVideo();
     }
 
     private IEnumerator RestartCoroutine()
