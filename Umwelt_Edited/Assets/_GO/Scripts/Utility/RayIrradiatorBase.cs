@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RayIrradiatorBase : MonoBehaviour
 {
+    public Action OnRayHit;
+    public Action OnRayOut;
+
     protected GameObject _hitObj;
     protected Vector3 _hitPoint;
    
@@ -37,11 +41,11 @@ public class RayIrradiatorBase : MonoBehaviour
 
     public virtual void RayHit()
     {
-
+        OnRayHit();
     }
 
     public virtual void RayOut()
     {
-
+        OnRayOut();
     }
 }

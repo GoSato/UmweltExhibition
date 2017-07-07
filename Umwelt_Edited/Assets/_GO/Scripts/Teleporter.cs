@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Teleporter : RayIrradiatorBase
 {
@@ -31,15 +32,16 @@ public class Teleporter : RayIrradiatorBase
 
     public override void RayHit()
     {
-        base.RayHit();
         if (PlayerManager.Instance.CurrentPlayerState == PlayerState.Middle)
         {
+            base.RayHit();
             ReadyTeleport();
         }
         else
         {
             if (_hitObj.GetComponentInChildren<IAudioObject>().Type == FrequencyType.Middle)
             {
+                base.RayHit();
                 ReadyTeleport();
             }
         }
